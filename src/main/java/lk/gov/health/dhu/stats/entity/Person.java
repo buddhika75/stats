@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import lk.gov.health.dhu.stats.enums.PersonType;
+import lk.gov.health.dhu.stats.enums.UserRole;
 
 
 /**
@@ -44,7 +45,40 @@ public class Person implements Serializable {
     Speciality speciality;
     @ManyToOne
     Unit unit;
+    @ManyToOne
+    Institution institution;
+    @Enumerated(EnumType.STRING)
+    UserRole userRole;
+    String userLanguage;
 
+    public String getUserLanguage() {
+        return userLanguage;
+    }
+
+    public void setUserLanguage(String userLanguage) {
+        this.userLanguage = userLanguage;
+    }
+    
+    
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    
+    
     public String getSname() {
         return sname;
     }

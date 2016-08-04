@@ -6,6 +6,8 @@ import lk.gov.health.dhu.stats.controllers.util.PaginationHelper;
 import lk.gov.health.dhu.stats.sessionBeans.PersonFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +19,9 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.xml.rpc.Call;
+import lk.gov.health.dhu.stats.entity.Institution;
+import lk.gov.health.dhu.stats.enums.UserRole;
 
 @ManagedBean(name = "personController")
 @SessionScoped
@@ -28,6 +33,55 @@ public class PersonController implements Serializable {
     private lk.gov.health.dhu.stats.sessionBeans.PersonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+
+    private String userName;
+    private String password;
+    private Person loggedUser;
+    private Institution loggedInstitution;
+    private boolean logged;
+    private UserRole loggedUserRole;
+
+    public void logOut() {
+        loggedUser = null;
+        logged = false;
+        loggedInstitution=null;
+        loggedUserRole = null;
+    }
+
+    public void logIn() {
+        logged=false;
+        loggedInstitution = null;
+        loggedUser =null;
+        if (userName == null || userName.trim().equals("")) {
+            JsfUtil.addErrorMessage("User Name?");
+            return;
+        }
+        if (password == null || password.trim().equals("")) {
+            JsfUtil.addErrorMessage("Password?");
+            return;
+        }
+        String j;
+        j = "select p from Person p "
+                + " where p.active=:pac "
+                + " and upper(p.userName)=:un ";
+        Map m = new HashMap();
+        m.put("un", userName.toUpperCase());
+        m.put("pac", true);
+        
+        Person p = getFacade().findFirstBySQL(j, m);
+        if (p == null) {
+            JsfUtil.addErrorMessage("No such user?");
+            return;
+        }
+        if(p.getPassword().equals(password)){
+            logged=true;
+            loggedInstitution = p.getInstitution();
+            loggedUser = p;
+            loggedUserRole = p.getUserRole();
+        }
+        
+        
+    }
 
     public PersonController() {
     }
@@ -186,6 +240,56 @@ public class PersonController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+   
+
+    public Institution getLoggedInstitution() {
+        return loggedInstitution;
+    }
+
+    public void setLoggedInstitution(Institution loggedInstitution) {
+        this.loggedInstitution = loggedInstitution;
+    }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+    public UserRole getLoggedUserRole() {
+        return loggedUserRole;
+    }
+
+    public void setLoggedUserRole(UserRole loggedUserRole) {
+        this.loggedUserRole = loggedUserRole;
+    }
+
+    public Person getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(Person loggedUser) {
+        this.loggedUser = loggedUser;
     }
 
     @FacesConverter(forClass = Person.class)
