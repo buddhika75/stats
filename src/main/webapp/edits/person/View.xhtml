@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPersonTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPersonLabel_sname}"/>
+                    <h:outputText value="#{personController.selected.sname}" title="#{bundle.ViewPersonTitle_sname}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_tname}"/>
+                    <h:outputText value="#{personController.selected.tname}" title="#{bundle.ViewPersonTitle_tname}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_ename}"/>
+                    <h:outputText value="#{personController.selected.ename}" title="#{bundle.ViewPersonTitle_ename}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_type}"/>
+                    <h:outputText value="#{personController.selected.type}" title="#{bundle.ViewPersonTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_userName}"/>
+                    <h:outputText value="#{personController.selected.userName}" title="#{bundle.ViewPersonTitle_userName}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_password}"/>
+                    <h:outputText value="#{personController.selected.password}" title="#{bundle.ViewPersonTitle_password}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_speciality}"/>
+                    <h:outputText value="#{personController.selected.speciality}" title="#{bundle.ViewPersonTitle_speciality}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_unit}"/>
+                    <h:outputText value="#{personController.selected.unit}" title="#{bundle.ViewPersonTitle_unit}"/>
+                    <h:outputText value="#{bundle.ViewPersonLabel_id}"/>
+                    <h:outputText value="#{personController.selected.id}" title="#{bundle.ViewPersonTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{personController.destroyAndView}" value="#{bundle.ViewPersonDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPersonEditLink}"/>
+                <br />
+                <h:commandLink action="#{personController.prepareCreate}" value="#{bundle.ViewPersonCreateLink}" />
+                <br />
+                <h:commandLink action="#{personController.prepareList}" value="#{bundle.ViewPersonShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPersonIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

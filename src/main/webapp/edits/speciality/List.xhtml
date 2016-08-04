@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSpecialityTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSpecialityEmpty}" rendered="#{specialityController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{specialityController.items.rowCount > 0}">
+                    <h:outputText value="#{specialityController.pagination.pageFirstItem + 1}..#{specialityController.pagination.pageLastItem + 1}/#{specialityController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{specialityController.previous}" value="#{bundle.Previous} #{specialityController.pagination.pageSize}" rendered="#{specialityController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{specialityController.next}" value="#{bundle.Next} #{specialityController.pagination.pageSize}" rendered="#{specialityController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{specialityController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_sname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_tname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_ename}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ename}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_category}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.category}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpecialityTitle_parent}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parent}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{specialityController.prepareView}" value="#{bundle.ListSpecialityViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{specialityController.prepareEdit}" value="#{bundle.ListSpecialityEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{specialityController.destroy}" value="#{bundle.ListSpecialityDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{specialityController.prepareCreate}" value="#{bundle.ListSpecialityCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSpecialityIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRecordTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRecordLabel_id}"/>
+                    <h:outputText value="#{recordController.selected.id}" title="#{bundle.ViewRecordTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_sname}"/>
+                    <h:outputText value="#{recordController.selected.sname}" title="#{bundle.ViewRecordTitle_sname}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_tname}"/>
+                    <h:outputText value="#{recordController.selected.tname}" title="#{bundle.ViewRecordTitle_tname}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_ename}"/>
+                    <h:outputText value="#{recordController.selected.ename}" title="#{bundle.ViewRecordTitle_ename}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_type}"/>
+                    <h:outputText value="#{recordController.selected.type}" title="#{bundle.ViewRecordTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_parent}"/>
+                    <h:outputText value="#{recordController.selected.parent}" title="#{bundle.ViewRecordTitle_parent}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_recordDate}"/>
+                    <h:outputText value="#{recordController.selected.recordDate}" title="#{bundle.ViewRecordTitle_recordDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRecordLabel_fromDate}"/>
+                    <h:outputText value="#{recordController.selected.fromDate}" title="#{bundle.ViewRecordTitle_fromDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRecordLabel_toDate}"/>
+                    <h:outputText value="#{recordController.selected.toDate}" title="#{bundle.ViewRecordTitle_toDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRecordLabel_recordYear}"/>
+                    <h:outputText value="#{recordController.selected.recordYear}" title="#{bundle.ViewRecordTitle_recordYear}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_recordMonth}"/>
+                    <h:outputText value="#{recordController.selected.recordMonth}" title="#{bundle.ViewRecordTitle_recordMonth}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_recordQuarter}"/>
+                    <h:outputText value="#{recordController.selected.recordQuarter}" title="#{bundle.ViewRecordTitle_recordQuarter}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_institution}"/>
+                    <h:outputText value="#{recordController.selected.institution}" title="#{bundle.ViewRecordTitle_institution}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_person}"/>
+                    <h:outputText value="#{recordController.selected.person}" title="#{bundle.ViewRecordTitle_person}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_unit}"/>
+                    <h:outputText value="#{recordController.selected.unit}" title="#{bundle.ViewRecordTitle_unit}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_ward}"/>
+                    <h:outputText value="#{recordController.selected.ward}" title="#{bundle.ViewRecordTitle_ward}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_category}"/>
+                    <h:outputText value="#{recordController.selected.category}" title="#{bundle.ViewRecordTitle_category}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_recordValue}"/>
+                    <h:outputText value="#{recordController.selected.recordValue}" title="#{bundle.ViewRecordTitle_recordValue}"/>
+                    <h:outputText value="#{bundle.ViewRecordLabel_comments}"/>
+                    <h:outputText value="#{recordController.selected.comments}" title="#{bundle.ViewRecordTitle_comments}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{recordController.destroyAndView}" value="#{bundle.ViewRecordDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRecordEditLink}"/>
+                <br />
+                <h:commandLink action="#{recordController.prepareCreate}" value="#{bundle.ViewRecordCreateLink}" />
+                <br />
+                <h:commandLink action="#{recordController.prepareList}" value="#{bundle.ViewRecordShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRecordIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

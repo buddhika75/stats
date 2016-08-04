@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewInstitutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_id}"/>
+                    <h:outputText value="#{institutionController.selected.id}" title="#{bundle.ViewInstitutionTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_sname}"/>
+                    <h:outputText value="#{institutionController.selected.sname}" title="#{bundle.ViewInstitutionTitle_sname}"/>
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_tname}"/>
+                    <h:outputText value="#{institutionController.selected.tname}" title="#{bundle.ViewInstitutionTitle_tname}"/>
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_ename}"/>
+                    <h:outputText value="#{institutionController.selected.ename}" title="#{bundle.ViewInstitutionTitle_ename}"/>
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_type}"/>
+                    <h:outputText value="#{institutionController.selected.type}" title="#{bundle.ViewInstitutionTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewInstitutionLabel_parent}"/>
+                    <h:outputText value="#{institutionController.selected.parent}" title="#{bundle.ViewInstitutionTitle_parent}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{institutionController.destroyAndView}" value="#{bundle.ViewInstitutionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewInstitutionEditLink}"/>
+                <br />
+                <h:commandLink action="#{institutionController.prepareCreate}" value="#{bundle.ViewInstitutionCreateLink}" />
+                <br />
+                <h:commandLink action="#{institutionController.prepareList}" value="#{bundle.ViewInstitutionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewInstitutionIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

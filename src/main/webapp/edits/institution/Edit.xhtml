@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditInstitutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{institutionController.selected.id}" title="#{bundle.EditInstitutionTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_sname}" for="sname" />
+                    <h:inputText id="sname" value="#{institutionController.selected.sname}" title="#{bundle.EditInstitutionTitle_sname}" />
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_tname}" for="tname" />
+                    <h:inputText id="tname" value="#{institutionController.selected.tname}" title="#{bundle.EditInstitutionTitle_tname}" />
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_ename}" for="ename" />
+                    <h:inputText id="ename" value="#{institutionController.selected.ename}" title="#{bundle.EditInstitutionTitle_ename}" />
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{institutionController.selected.type}" title="#{bundle.EditInstitutionTitle_type}" />
+                    <h:outputLabel value="#{bundle.EditInstitutionLabel_parent}" for="parent" />
+                    <h:selectOneMenu id="parent" value="#{institutionController.selected.parent}" title="#{bundle.EditInstitutionTitle_parent}" >
+                        <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{institutionController.update}" value="#{bundle.EditInstitutionSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditInstitutionViewLink}"/>
+                <br />
+                <h:commandLink action="#{institutionController.prepareList}" value="#{bundle.EditInstitutionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditInstitutionIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

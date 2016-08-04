@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUnitTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUnitLabel_id}"/>
+                    <h:outputText value="#{unitController.selected.id}" title="#{bundle.ViewUnitTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_parent}"/>
+                    <h:outputText value="#{unitController.selected.parent}" title="#{bundle.ViewUnitTitle_parent}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_sname}"/>
+                    <h:outputText value="#{unitController.selected.sname}" title="#{bundle.ViewUnitTitle_sname}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_tname}"/>
+                    <h:outputText value="#{unitController.selected.tname}" title="#{bundle.ViewUnitTitle_tname}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_ename}"/>
+                    <h:outputText value="#{unitController.selected.ename}" title="#{bundle.ViewUnitTitle_ename}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_type}"/>
+                    <h:outputText value="#{unitController.selected.type}" title="#{bundle.ViewUnitTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_category}"/>
+                    <h:outputText value="#{unitController.selected.category}" title="#{bundle.ViewUnitTitle_category}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{unitController.destroyAndView}" value="#{bundle.ViewUnitDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewUnitEditLink}"/>
+                <br />
+                <h:commandLink action="#{unitController.prepareCreate}" value="#{bundle.ViewUnitCreateLink}" />
+                <br />
+                <h:commandLink action="#{unitController.prepareList}" value="#{bundle.ViewUnitShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewUnitIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

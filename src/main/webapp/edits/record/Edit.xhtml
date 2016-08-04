@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRecordTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRecordLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{recordController.selected.id}" title="#{bundle.EditRecordTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_sname}" for="sname" />
+                    <h:inputText id="sname" value="#{recordController.selected.sname}" title="#{bundle.EditRecordTitle_sname}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_tname}" for="tname" />
+                    <h:inputText id="tname" value="#{recordController.selected.tname}" title="#{bundle.EditRecordTitle_tname}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_ename}" for="ename" />
+                    <h:inputText id="ename" value="#{recordController.selected.ename}" title="#{bundle.EditRecordTitle_ename}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{recordController.selected.type}" title="#{bundle.EditRecordTitle_type}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_parent}" for="parent" />
+                    <h:selectOneMenu id="parent" value="#{recordController.selected.parent}" title="#{bundle.EditRecordTitle_parent}" >
+                        <f:selectItems value="#{recordController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_recordDate}" for="recordDate" />
+                    <h:inputText id="recordDate" value="#{recordController.selected.recordDate}" title="#{bundle.EditRecordTitle_recordDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_fromDate}" for="fromDate" />
+                    <h:inputText id="fromDate" value="#{recordController.selected.fromDate}" title="#{bundle.EditRecordTitle_fromDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_toDate}" for="toDate" />
+                    <h:inputText id="toDate" value="#{recordController.selected.toDate}" title="#{bundle.EditRecordTitle_toDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_recordYear}" for="recordYear" />
+                    <h:inputText id="recordYear" value="#{recordController.selected.recordYear}" title="#{bundle.EditRecordTitle_recordYear}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_recordMonth}" for="recordMonth" />
+                    <h:inputText id="recordMonth" value="#{recordController.selected.recordMonth}" title="#{bundle.EditRecordTitle_recordMonth}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_recordQuarter}" for="recordQuarter" />
+                    <h:inputText id="recordQuarter" value="#{recordController.selected.recordQuarter}" title="#{bundle.EditRecordTitle_recordQuarter}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_institution}" for="institution" />
+                    <h:selectOneMenu id="institution" value="#{recordController.selected.institution}" title="#{bundle.EditRecordTitle_institution}" >
+                        <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_person}" for="person" />
+                    <h:selectOneMenu id="person" value="#{recordController.selected.person}" title="#{bundle.EditRecordTitle_person}" >
+                        <f:selectItems value="#{personController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_unit}" for="unit" />
+                    <h:selectOneMenu id="unit" value="#{recordController.selected.unit}" title="#{bundle.EditRecordTitle_unit}" >
+                        <f:selectItems value="#{unitController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_ward}" for="ward" />
+                    <h:selectOneMenu id="ward" value="#{recordController.selected.ward}" title="#{bundle.EditRecordTitle_ward}" >
+                        <f:selectItems value="#{wardController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_category}" for="category" />
+                    <h:selectOneMenu id="category" value="#{recordController.selected.category}" title="#{bundle.EditRecordTitle_category}" >
+                        <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRecordLabel_recordValue}" for="recordValue" />
+                    <h:inputText id="recordValue" value="#{recordController.selected.recordValue}" title="#{bundle.EditRecordTitle_recordValue}" />
+                    <h:outputLabel value="#{bundle.EditRecordLabel_comments}" for="comments" />
+                    <h:inputTextarea rows="4" cols="30" id="comments" value="#{recordController.selected.comments}" title="#{bundle.EditRecordTitle_comments}" />
+                </h:panelGrid>
+                <h:commandLink action="#{recordController.update}" value="#{bundle.EditRecordSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRecordViewLink}"/>
+                <br />
+                <h:commandLink action="#{recordController.prepareList}" value="#{bundle.EditRecordShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRecordIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

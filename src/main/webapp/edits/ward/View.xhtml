@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewWardTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewWardLabel_id}"/>
+                    <h:outputText value="#{wardController.selected.id}" title="#{bundle.ViewWardTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewWardLabel_sname}"/>
+                    <h:outputText value="#{wardController.selected.sname}" title="#{bundle.ViewWardTitle_sname}"/>
+                    <h:outputText value="#{bundle.ViewWardLabel_tname}"/>
+                    <h:outputText value="#{wardController.selected.tname}" title="#{bundle.ViewWardTitle_tname}"/>
+                    <h:outputText value="#{bundle.ViewWardLabel_ename}"/>
+                    <h:outputText value="#{wardController.selected.ename}" title="#{bundle.ViewWardTitle_ename}"/>
+                    <h:outputText value="#{bundle.ViewWardLabel_category}"/>
+                    <h:outputText value="#{wardController.selected.category}" title="#{bundle.ViewWardTitle_category}"/>
+                    <h:outputText value="#{bundle.ViewWardLabel_parent}"/>
+                    <h:outputText value="#{wardController.selected.parent}" title="#{bundle.ViewWardTitle_parent}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{wardController.destroyAndView}" value="#{bundle.ViewWardDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewWardEditLink}"/>
+                <br />
+                <h:commandLink action="#{wardController.prepareCreate}" value="#{bundle.ViewWardCreateLink}" />
+                <br />
+                <h:commandLink action="#{wardController.prepareList}" value="#{bundle.ViewWardShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewWardIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
