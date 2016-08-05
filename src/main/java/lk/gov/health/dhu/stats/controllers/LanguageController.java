@@ -5,18 +5,22 @@
  */
 package lk.gov.health.dhu.stats.controllers;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author User
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class LanguageController {
+public class LanguageController implements Serializable {
 
     String language;
+    @Inject
+    PersonController personController;
 
     /**
      * Creates a new instance of LanguageController
@@ -35,16 +39,24 @@ public class LanguageController {
         this.language = language;
     }
 
+    private void makeLanguage(String lan){
+        language = lan;
+        if(personController.getLoggedUser()!=null){
+            personController.getLoggedUser().setUserLanguage(lan);
+            personController.updateLoggedUser();
+        }
+    }
+    
     public void makeLanguageSinhala() {
-        language = "si";
+        makeLanguage("si");
     }
 
     public void makeLanguageTamil() {
-        language = "ta";
+        makeLanguage("ta");
     }
     
      public void makeLanguageEnglish() {
-        language = "en";
+         makeLanguage("en");
     }
 
 }

@@ -5,16 +5,15 @@
  */
 package lk.gov.health.dhu.stats.controllers;
 
-import java.util.List;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import javax.inject.Named;
 import lk.gov.health.dhu.stats.enums.UserRole;
 
 /**
  *
  * @author User
  */
-@ManagedBean
+@Named
 @ApplicationScoped
 public class EnumController {
 
@@ -26,6 +25,10 @@ public class EnumController {
     
     public UserRole[] getUserRoles(){
         return UserRole.values();
+    }
+    
+    public String[] getLanguages(){
+        return new String[]{"en","si","ta"};
     }
     
 }

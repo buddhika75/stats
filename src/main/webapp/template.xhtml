@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <f:view locale="#{languageController.language}" >
+
+            <div id="top">
+                <ui:insert name="top">
+                    <div style="float: left; width: 100px;" >
+                        <h:form >
+                            <table >
+                                <tr>
+                                    <td>
+                                        <h:commandLink value="#{bundle.sinhala}" action="#{languageController.makeLanguageSinhala()}" rendered="#{languageController.language ne 'si'}" ></h:commandLink>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="|"  rendered="#{languageController.language eq 'en'}"></h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:commandLink value="#{bundle.tamil}" action="#{languageController.makeLanguageTamil()}" rendered="#{languageController.language ne 'ta'}"></h:commandLink>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="|"  rendered="#{languageController.language ne 'en'}"></h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:commandLink value="#{bundle.english}" action="#{languageController.makeLanguageEnglish()}" rendered="#{languageController.language ne 'en'}"></h:commandLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h:form>
+                    </div>
+
+                    <div style="float: right; width: 100px;" >
+                        Login
+                    </div>
+                    <div style="margin: 0 auto; ">
+                        Hospital Statistics
+                    </div>
+                </ui:insert>
+            </div>
+            <div>
+                <div id="left">
+                    <ui:insert name="left">
+                        <h:form >
+
+                            <p:menu >
+
+                                <p:menuitem value="Reports" ></p:menuitem>
+
+                                <p:menuitem value="Data Entry" ></p:menuitem>
+
+                                <p:submenu label="Admin" >
+                                    <p:menuitem value="System Administration" action="admin_index" ajax="false" ></p:menuitem>
+                                </p:submenu>
+                            </p:menu>
+
+                        </h:form>
+
+                    </ui:insert>
+                </div>
+                <div>
+                    <div id="right">
+                        <ui:insert name="right">
+                            <h:panelGroup >
+                                <h:panelGroup rendered="#{personController.loggedUser ne null}" >
+                                    <p:commandLink ajax="false" action="#{personController.logOut()}" value="Log Out"></p:commandLink>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </ui:insert>
+                    </div>
+                    <div id="content" class="right_content">
+                        <ui:insert name="content">Content</ui:insert>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom">
+                <ui:insert name="bottom">&copy; Health Information Unit, Department of Health Services, Southern Province, Sri Lanka</ui:insert>
+            </div>
+
+        </f:view>
+    </h:body>
+
+</html>

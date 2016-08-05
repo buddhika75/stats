@@ -10,8 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -19,13 +18,17 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.xml.rpc.Call;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lk.gov.health.dhu.stats.entity.Institution;
 import lk.gov.health.dhu.stats.enums.UserRole;
 
-@ManagedBean(name = "personController")
+@Named
 @SessionScoped
 public class PersonController implements Serializable {
+
+    @Inject
+    LanguageController languageController;
 
     private Person current;
     private DataModel items = null;
@@ -44,14 +47,14 @@ public class PersonController implements Serializable {
     public void logOut() {
         loggedUser = null;
         logged = false;
-        loggedInstitution=null;
+        loggedInstitution = null;
         loggedUserRole = null;
     }
 
     public void logIn() {
-        logged=false;
+        logged = false;
         loggedInstitution = null;
-        loggedUser =null;
+        loggedUser = null;
         if (userName == null || userName.trim().equals("")) {
             JsfUtil.addErrorMessage("User Name?");
             return;
@@ -67,20 +70,20 @@ public class PersonController implements Serializable {
         Map m = new HashMap();
         m.put("un", userName.toUpperCase());
         m.put("pac", true);
-        
+
         Person p = getFacade().findFirstBySQL(j, m);
         if (p == null) {
             JsfUtil.addErrorMessage("No such user?");
             return;
         }
-        if(p.getPassword().equals(password)){
-            logged=true;
+        if (p.getPassword().equals(password)) {
+            logged = true;
             loggedInstitution = p.getInstitution();
             loggedUser = p;
             loggedUserRole = p.getUserRole();
+            languageController.setLanguage(p.getUserLanguage());
         }
-        
-        
+
     }
 
     public PersonController() {
@@ -161,6 +164,18 @@ public class PersonController implements Serializable {
         }
     }
 
+    public void updateLoggedUser() {
+        if(loggedUser==null){
+            return;
+        }
+        try {
+            getFacade().edit(loggedUser);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
     public String destroy() {
         current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -257,8 +272,6 @@ public class PersonController implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-   
 
     public Institution getLoggedInstitution() {
         return loggedInstitution;
