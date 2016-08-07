@@ -112,7 +112,7 @@ public class Ward implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.thk.website.entity.Ward[ id=" + id + " ]";
+        return sname + "/" + tname + "/" + ename;
     }
 
 }

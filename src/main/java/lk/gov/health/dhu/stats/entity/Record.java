@@ -245,7 +245,7 @@ public class Record implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.dhu.stats.entity.Record[ id=" + id + " ]";
+        return sname + "/" + tname + "/" + ename;
     }
 
 }

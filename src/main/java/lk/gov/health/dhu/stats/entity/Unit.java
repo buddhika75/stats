@@ -134,7 +134,7 @@ public class Unit implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.thk.website.entity.Unit[ id=" + id + " ]";
+        return sname + "/" + tname + "/" + ename;
     }
 
 }

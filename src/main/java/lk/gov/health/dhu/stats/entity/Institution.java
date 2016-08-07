@@ -116,7 +116,7 @@ public class Institution implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.dhu.stats.entity.Institution[ id=" + id + " ]";
+        return sname + "/" + tname + "/" + ename;
     }
 
 }

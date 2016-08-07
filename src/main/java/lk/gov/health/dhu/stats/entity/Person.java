@@ -183,7 +183,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.thk.website.entity.Person[ id=" + id + " ]";
+        return sname + "/" + tname + "/" + ename;
     }
     
 }

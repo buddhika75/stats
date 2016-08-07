@@ -8,16 +8,16 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Hospital Statistics</title>
     </h:head>
 
     <h:body>
 
         <f:view locale="#{languageController.language}" >
 
-            <div id="top">
+            <div id="top" style=" height: 40px;">
                 <ui:insert name="top">
                     <div style="float: left; width: 100px;" >
                         <h:form >
@@ -63,10 +63,13 @@
                                 <p:menuitem value="Data Entry" ></p:menuitem>
 
                                 <p:submenu label="Admin" >
-                                    <p:menuitem value="System Administration" action="admin_index" ajax="false" ></p:menuitem>
+                                    <p:menuitem value="System Administration" action="admin_index.xhtml" ajax="false" ></p:menuitem>
                                 </p:submenu>
                             </p:menu>
 
+                            
+                            <p:commandLink ajax="false" action="admin_index" value="Admin" ></p:commandLink>
+                            
                         </h:form>
 
                     </ui:insert>

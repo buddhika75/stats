@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template1.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.EditCategoryTitle}"></h:outputText>
         </ui:define>
@@ -22,7 +22,9 @@
                     <h:outputLabel value="#{bundle.EditCategoryLabel_ename}" for="ename" />
                     <h:inputText id="ename" value="#{categoryController.selected.ename}" title="#{bundle.EditCategoryTitle_ename}" />
                     <h:outputLabel value="#{bundle.EditCategoryLabel_type}" for="type" />
-                    <h:inputText id="type" value="#{categoryController.selected.type}" title="#{bundle.EditCategoryTitle_type}" />
+                     <h:selectOneMenu id="type" value="#{categoryController.selected.type}" title="#{bundle.CreateCategoryTitle_type}" >
+                        <f:selectItems value="#{enumController.categoryTypes}"/>
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditCategoryLabel_parent}" for="parent" />
                     <h:selectOneMenu id="parent" value="#{categoryController.selected.parent}" title="#{bundle.EditCategoryTitle_parent}" >
                         <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"/>
