@@ -19,8 +19,7 @@ import javax.inject.Named;
 public class LanguageController implements Serializable {
 
     String language;
-    @Inject
-    PersonController personController;
+   
 
     /**
      * Creates a new instance of LanguageController
@@ -41,10 +40,6 @@ public class LanguageController implements Serializable {
 
     private void makeLanguage(String lan){
         language = lan;
-        if(personController.getLoggedUser()!=null){
-            personController.getLoggedUser().setUserLanguage(lan);
-            personController.updateLoggedUser();
-        }
     }
     
     public void makeLanguageSinhala() {

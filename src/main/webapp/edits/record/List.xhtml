@@ -3,161 +3,163 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template1.xhtml">
+    <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListRecordTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListRecordEmpty}" rendered="#{recordController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{recordController.items.rowCount > 0}">
-                    <h:outputText value="#{recordController.pagination.pageFirstItem + 1}..#{recordController.pagination.pageLastItem + 1}/#{recordController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{recordController.previous}" value="#{bundle.Previous} #{recordController.pagination.pageSize}" rendered="#{recordController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{recordController.next}" value="#{bundle.Next} #{recordController.pagination.pageSize}" rendered="#{recordController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{recordController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="RecordListForm">
+                <p:panel header="#{bundle.ListRecordTitle}">
+                    <p:dataTable id="datalist" value="#{recordController.items}" var="item"
+                                 selectionMode="single" selection="#{recordController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_sname}"/>
                             </f:facet>
                             <h:outputText value="#{item.sname}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_tname}"/>
                             </f:facet>
                             <h:outputText value="#{item.tname}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_ename}"/>
                             </f:facet>
                             <h:outputText value="#{item.ename}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_type}"/>
                             </f:facet>
                             <h:outputText value="#{item.type}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_parent}"/>
                             </f:facet>
                             <h:outputText value="#{item.parent}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_recordDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_fromDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.fromDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_toDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.toDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_recordYear}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordYear}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_recordMonth}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordMonth}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_recordQuarter}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordQuarter}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_institution}"/>
                             </f:facet>
                             <h:outputText value="#{item.institution}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_person}"/>
                             </f:facet>
                             <h:outputText value="#{item.person}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_unit}"/>
                             </f:facet>
                             <h:outputText value="#{item.unit}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_ward}"/>
                             </f:facet>
                             <h:outputText value="#{item.ward}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_category}"/>
                             </f:facet>
                             <h:outputText value="#{item.category}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_recordValue}"/>
                             </f:facet>
                             <h:outputText value="#{item.recordValue}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRecordTitle_comments}"/>
                             </f:facet>
                             <h:outputText value="#{item.comments}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{recordController.prepareView}" value="#{bundle.ListRecordViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{recordController.prepareEdit}" value="#{bundle.ListRecordEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{recordController.destroy}" value="#{bundle.ListRecordDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{recordController.prepareCreate}" value="#{bundle.ListRecordCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListRecordIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{recordController.prepareCreate}" update=":RecordCreateForm" oncomplete="PF('RecordCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RecordViewForm" oncomplete="PF('RecordViewDialog').show()" disabled="#{empty recordController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RecordEditForm" oncomplete="PF('RecordEditDialog').show()" disabled="#{empty recordController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{recordController.destroy}" update=":growl,datalist" disabled="#{empty recordController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

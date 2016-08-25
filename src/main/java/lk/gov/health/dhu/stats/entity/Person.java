@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import lk.gov.health.dhu.stats.enums.PersonType;
 import lk.gov.health.dhu.stats.enums.UserRole;
 
-
 /**
  *
  * @author User
@@ -30,14 +29,14 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     String sname;
     String tname;
     String ename;
     boolean active;
     @Enumerated(EnumType.STRING)
     PersonType type;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     String userName;
     @Lob
     String password;
@@ -50,6 +49,45 @@ public class Person implements Serializable {
     @Enumerated(EnumType.STRING)
     UserRole userRole;
     String userLanguage;
+    @Lob
+    String address;
+    String email;
+    String phone;
+    String fax;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+    
+    
 
     public String getUserLanguage() {
         return userLanguage;
@@ -58,8 +96,6 @@ public class Person implements Serializable {
     public void setUserLanguage(String userLanguage) {
         this.userLanguage = userLanguage;
     }
-    
-    
 
     public Institution getInstitution() {
         return institution;
@@ -77,8 +113,6 @@ public class Person implements Serializable {
         this.userRole = userRole;
     }
 
-    
-    
     public String getSname() {
         return sname;
     }
@@ -150,8 +184,6 @@ public class Person implements Serializable {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -185,5 +217,5 @@ public class Person implements Serializable {
     public String toString() {
         return sname + "/" + tname + "/" + ename;
     }
-    
+
 }

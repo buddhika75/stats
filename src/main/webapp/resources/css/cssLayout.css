@@ -23,7 +23,14 @@
     float: left;
     background-color: #ece3a5;
     padding: 5px;
+    width: 150px;
 }
+
+#center{
+    float: left;
+    margin: auto;
+}
+
 
 #right {
     float: right;
@@ -31,6 +38,7 @@
     padding: 5px;
     width: 150px;
 }
+
 
 .center_content {
     position: relative;

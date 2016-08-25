@@ -3,46 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template1.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewSpecialityTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_id}"/>
-                    <h:outputText value="#{specialityController.selected.id}" title="#{bundle.ViewSpecialityTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_sname}"/>
-                    <h:outputText value="#{specialityController.selected.sname}" title="#{bundle.ViewSpecialityTitle_sname}"/>
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_tname}"/>
-                    <h:outputText value="#{specialityController.selected.tname}" title="#{bundle.ViewSpecialityTitle_tname}"/>
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_ename}"/>
-                    <h:outputText value="#{specialityController.selected.ename}" title="#{bundle.ViewSpecialityTitle_ename}"/>
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_category}"/>
-                    <h:outputText value="#{specialityController.selected.category}" title="#{bundle.ViewSpecialityTitle_category}"/>
-                    <h:outputText value="#{bundle.ViewSpecialityLabel_parent}"/>
-                    <h:outputText value="#{specialityController.selected.parent}" title="#{bundle.ViewSpecialityTitle_parent}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{specialityController.destroyAndView}" value="#{bundle.ViewSpecialityDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewSpecialityEditLink}"/>
-                <br />
-                <h:commandLink action="#{specialityController.prepareCreate}" value="#{bundle.ViewSpecialityCreateLink}" />
-                <br />
-                <h:commandLink action="#{specialityController.prepareList}" value="#{bundle.ViewSpecialityShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewSpecialityIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="SpecialityViewDlg" widgetVar="SpecialityViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSpecialityTitle}">
+            <h:form id="SpecialityViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{specialityController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_id}"/>
+                        <h:outputText value="#{specialityController.selected.id}" title="#{bundle.ViewSpecialityTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_sname}"/>
+                        <h:outputText value="#{specialityController.selected.sname}" title="#{bundle.ViewSpecialityTitle_sname}"/>
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_tname}"/>
+                        <h:outputText value="#{specialityController.selected.tname}" title="#{bundle.ViewSpecialityTitle_tname}"/>
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_ename}"/>
+                        <h:outputText value="#{specialityController.selected.ename}" title="#{bundle.ViewSpecialityTitle_ename}"/>
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_category}"/>
+                        <h:outputText value="#{specialityController.selected.category}" title="#{bundle.ViewSpecialityTitle_category}"/>
+                        <h:outputText value="#{bundle.ViewSpecialityLabel_parent}"/>
+                        <h:outputText value="#{specialityController.selected.parent}" title="#{bundle.ViewSpecialityTitle_parent}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SpecialityViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

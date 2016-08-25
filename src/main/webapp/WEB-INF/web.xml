@@ -21,4 +21,10 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.xhtml</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>

@@ -3,86 +3,89 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template1.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditRecordTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditRecordLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{recordController.selected.id}" title="#{bundle.EditRecordTitle_id}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_sname}" for="sname" />
-                    <h:inputText id="sname" value="#{recordController.selected.sname}" title="#{bundle.EditRecordTitle_sname}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_tname}" for="tname" />
-                    <h:inputText id="tname" value="#{recordController.selected.tname}" title="#{bundle.EditRecordTitle_tname}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_ename}" for="ename" />
-                    <h:inputText id="ename" value="#{recordController.selected.ename}" title="#{bundle.EditRecordTitle_ename}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_type}" for="type" />
-                    <h:inputText id="type" value="#{recordController.selected.type}" title="#{bundle.EditRecordTitle_type}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_parent}" for="parent" />
-                    <h:selectOneMenu id="parent" value="#{recordController.selected.parent}" title="#{bundle.EditRecordTitle_parent}" >
-                        <f:selectItems value="#{recordController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_recordDate}" for="recordDate" />
-                    <h:inputText id="recordDate" value="#{recordController.selected.recordDate}" title="#{bundle.EditRecordTitle_recordDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_fromDate}" for="fromDate" />
-                    <h:inputText id="fromDate" value="#{recordController.selected.fromDate}" title="#{bundle.EditRecordTitle_fromDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_toDate}" for="toDate" />
-                    <h:inputText id="toDate" value="#{recordController.selected.toDate}" title="#{bundle.EditRecordTitle_toDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_recordYear}" for="recordYear" />
-                    <h:inputText id="recordYear" value="#{recordController.selected.recordYear}" title="#{bundle.EditRecordTitle_recordYear}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_recordMonth}" for="recordMonth" />
-                    <h:inputText id="recordMonth" value="#{recordController.selected.recordMonth}" title="#{bundle.EditRecordTitle_recordMonth}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_recordQuarter}" for="recordQuarter" />
-                    <h:inputText id="recordQuarter" value="#{recordController.selected.recordQuarter}" title="#{bundle.EditRecordTitle_recordQuarter}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_institution}" for="institution" />
-                    <h:selectOneMenu id="institution" value="#{recordController.selected.institution}" title="#{bundle.EditRecordTitle_institution}" >
-                        <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_person}" for="person" />
-                    <h:selectOneMenu id="person" value="#{recordController.selected.person}" title="#{bundle.EditRecordTitle_person}" >
-                        <f:selectItems value="#{personController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_unit}" for="unit" />
-                    <h:selectOneMenu id="unit" value="#{recordController.selected.unit}" title="#{bundle.EditRecordTitle_unit}" >
-                        <f:selectItems value="#{unitController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_ward}" for="ward" />
-                    <h:selectOneMenu id="ward" value="#{recordController.selected.ward}" title="#{bundle.EditRecordTitle_ward}" >
-                        <f:selectItems value="#{wardController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_category}" for="category" />
-                    <h:selectOneMenu id="category" value="#{recordController.selected.category}" title="#{bundle.EditRecordTitle_category}" >
-                        <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditRecordLabel_recordValue}" for="recordValue" />
-                    <h:inputText id="recordValue" value="#{recordController.selected.recordValue}" title="#{bundle.EditRecordTitle_recordValue}" />
-                    <h:outputLabel value="#{bundle.EditRecordLabel_comments}" for="comments" />
-                    <h:inputTextarea rows="4" cols="30" id="comments" value="#{recordController.selected.comments}" title="#{bundle.EditRecordTitle_comments}" />
-                </h:panelGrid>
-                <h:commandLink action="#{recordController.update}" value="#{bundle.EditRecordSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditRecordViewLink}"/>
-                <br />
-                <h:commandLink action="#{recordController.prepareList}" value="#{bundle.EditRecordShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditRecordIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="RecordEditDlg" widgetVar="RecordEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRecordTitle}">
+            <h:form id="RecordEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recordController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRecordLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{recordController.selected.id}" title="#{bundle.EditRecordTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_sname}" for="sname" />
+                        <p:inputText id="sname" value="#{recordController.selected.sname}" title="#{bundle.EditRecordTitle_sname}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_tname}" for="tname" />
+                        <p:inputText id="tname" value="#{recordController.selected.tname}" title="#{bundle.EditRecordTitle_tname}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_ename}" for="ename" />
+                        <p:inputText id="ename" value="#{recordController.selected.ename}" title="#{bundle.EditRecordTitle_ename}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{recordController.selected.type}" title="#{bundle.EditRecordTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_parent}" for="parent" />
+                        <p:selectOneMenu id="parent" value="#{recordController.selected.parent}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{recordController.itemsAvailableSelectOne}"
+                                           var="parentItem"
+                                           itemValue="#{parentItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_recordDate}" for="recordDate" />
+                        <p:calendar id="recordDate" pattern="MM/dd/yyyy" value="#{recordController.selected.recordDate}" title="#{bundle.EditRecordTitle_recordDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_fromDate}" for="fromDate" />
+                        <p:calendar id="fromDate" pattern="MM/dd/yyyy" value="#{recordController.selected.fromDate}" title="#{bundle.EditRecordTitle_fromDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_toDate}" for="toDate" />
+                        <p:calendar id="toDate" pattern="MM/dd/yyyy" value="#{recordController.selected.toDate}" title="#{bundle.EditRecordTitle_toDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_recordYear}" for="recordYear" />
+                        <p:inputText id="recordYear" value="#{recordController.selected.recordYear}" title="#{bundle.EditRecordTitle_recordYear}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_recordMonth}" for="recordMonth" />
+                        <p:inputText id="recordMonth" value="#{recordController.selected.recordMonth}" title="#{bundle.EditRecordTitle_recordMonth}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_recordQuarter}" for="recordQuarter" />
+                        <p:inputText id="recordQuarter" value="#{recordController.selected.recordQuarter}" title="#{bundle.EditRecordTitle_recordQuarter}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_institution}" for="institution" />
+                        <p:selectOneMenu id="institution" value="#{recordController.selected.institution}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"
+                                           var="institutionItem"
+                                           itemValue="#{institutionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_person}" for="person" />
+                        <p:selectOneMenu id="person" value="#{recordController.selected.person}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="personItem"
+                                           itemValue="#{personItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_unit}" for="unit" />
+                        <p:selectOneMenu id="unit" value="#{recordController.selected.unit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="unitItem"
+                                           itemValue="#{unitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_ward}" for="ward" />
+                        <p:selectOneMenu id="ward" value="#{recordController.selected.ward}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="wardItem"
+                                           itemValue="#{wardItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{recordController.selected.category}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
+                                           var="categoryItem"
+                                           itemValue="#{categoryItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_recordValue}" for="recordValue" />
+                        <p:inputText id="recordValue" value="#{recordController.selected.recordValue}" title="#{bundle.EditRecordTitle_recordValue}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_comments}" for="comments" />
+                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{recordController.selected.comments}" title="#{bundle.EditRecordTitle_comments}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recordController.update}" value="#{bundle.Save}" update="display,:RecordListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RecordEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RecordEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

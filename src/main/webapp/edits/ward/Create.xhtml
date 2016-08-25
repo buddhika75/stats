@@ -3,45 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template1.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateWardTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateWardLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{wardController.selected.id}" title="#{bundle.CreateWardTitle_id}" />
-                    <h:outputLabel value="#{bundle.CreateWardLabel_sname}" for="sname" />
-                    <h:inputText id="sname" value="#{wardController.selected.sname}" title="#{bundle.CreateWardTitle_sname}" />
-                    <h:outputLabel value="#{bundle.CreateWardLabel_tname}" for="tname" />
-                    <h:inputText id="tname" value="#{wardController.selected.tname}" title="#{bundle.CreateWardTitle_tname}" />
-                    <h:outputLabel value="#{bundle.CreateWardLabel_ename}" for="ename" />
-                    <h:inputText id="ename" value="#{wardController.selected.ename}" title="#{bundle.CreateWardTitle_ename}" />
-                    <h:outputLabel value="#{bundle.CreateWardLabel_category}" for="category" />
-                    <h:selectOneMenu id="category" value="#{wardController.selected.category}" title="#{bundle.CreateWardTitle_category}" >
-                        <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateWardLabel_parent}" for="parent" />
-                    <h:selectOneMenu id="parent" value="#{wardController.selected.parent}" title="#{bundle.CreateWardTitle_parent}" >
-                        <f:selectItems value="#{wardController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{wardController.create}" value="#{bundle.CreateWardSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{wardController.prepareList}" value="#{bundle.CreateWardShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateWardIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="WardCreateDlg" widgetVar="WardCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateWardTitle}">
+            <h:form id="WardCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{wardController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateWardLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{wardController.selected.id}" title="#{bundle.CreateWardTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateWardLabel_sname}" for="sname" />
+                        <p:inputText id="sname" value="#{wardController.selected.sname}" title="#{bundle.CreateWardTitle_sname}" />
+                        <p:outputLabel value="#{bundle.CreateWardLabel_tname}" for="tname" />
+                        <p:inputText id="tname" value="#{wardController.selected.tname}" title="#{bundle.CreateWardTitle_tname}" />
+                        <p:outputLabel value="#{bundle.CreateWardLabel_ename}" for="ename" />
+                        <p:inputText id="ename" value="#{wardController.selected.ename}" title="#{bundle.CreateWardTitle_ename}" />
+                        <p:outputLabel value="#{bundle.CreateWardLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{wardController.selected.category}" >
+                            <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
+                                           var="categoryItem"
+                                           itemValue="#{categoryItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateWardLabel_parent}" for="parent" />
+                        <p:selectOneMenu id="parent" value="#{wardController.selected.parent}" >
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="parentItem"
+                                           itemValue="#{parentItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{wardController.create}" value="#{bundle.Save}" update="display,:WardListForm:datalist,:growl" oncomplete="handleSubmit(args,'WardCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="WardCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

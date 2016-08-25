@@ -3,77 +3,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template1.xhtml">
+    <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListInstitutionTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListInstitutionEmpty}" rendered="#{institutionController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{institutionController.items.rowCount > 0}">
-                    <h:outputText value="#{institutionController.pagination.pageFirstItem + 1}..#{institutionController.pagination.pageLastItem + 1}/#{institutionController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{institutionController.previous}" value="#{bundle.Previous} #{institutionController.pagination.pageSize}" rendered="#{institutionController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{institutionController.next}" value="#{bundle.Next} #{institutionController.pagination.pageSize}" rendered="#{institutionController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{institutionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+
+        <ui:define name="content">
+            <h:form id="InstitutionListForm">
+               
+
+                <p:panel>
+
+
+
+                    <p:dataTable id="datalist" value="#{institutionController.items}" var="item"
+                                 selectionMode="single" selection="#{institutionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10" 
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_sname}"/>
+                                <h:outputText value="#{bundle.sname}"/>
                             </f:facet>
                             <h:outputText value="#{item.sname}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_tname}"/>
+                                <h:outputText value="#{bundle.tname}"/>
                             </f:facet>
                             <h:outputText value="#{item.tname}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_ename}"/>
+                                <h:outputText value="#{bundle.ename}"/>
                             </f:facet>
                             <h:outputText value="#{item.ename}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_type}"/>
+                                <h:outputText value="#{bundle.type}"/>
                             </f:facet>
                             <h:outputText value="#{item.type}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstitutionTitle_parent}"/>
+                                <h:outputText value="#{bundle.parent}"/>
                             </f:facet>
-                            <h:outputText value="#{item.parent}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{institutionController.prepareView}" value="#{bundle.ListInstitutionViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{institutionController.prepareEdit}" value="#{bundle.ListInstitutionEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{institutionController.destroy}" value="#{bundle.ListInstitutionDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{institutionController.prepareCreate}" value="#{bundle.ListInstitutionCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListInstitutionIndexLink}"/>
+                            <h:outputText value="#{item.parent.ename}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{institutionController.prepareCreate}" update=":InstitutionCreateForm" oncomplete="PF('InstitutionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstitutionViewForm" oncomplete="PF('InstitutionViewDialog').show()" disabled="#{empty institutionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstitutionEditForm" oncomplete="PF('InstitutionEditDialog').show()" disabled="#{empty institutionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{institutionController.destroy}" update=":growl,datalist" disabled="#{empty institutionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 
